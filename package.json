@@ -1,0 +1,17 @@
+{
+  "name": "photo-notes-api",
+  "version": "1.0.0",
+  "description": "A RESTful API for the PhotoNotes Service",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "Adam C",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "express": "^4.14.0",
+    "mongoose": "^4.7.8",
+    "morgan": "^1.7.0"
+  }
+}
