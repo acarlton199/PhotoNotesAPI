@@ -1,5 +1,7 @@
 var User = require("../models/users");
 var jwt = require("jsonwebtoken");
+var path = require("path");
+var fs = require("fs");
 var config = require("../../config/secret");
 
 var superSecret = config.secret;
@@ -27,6 +29,15 @@ module.exports = function (app, express) {
 					return res.send(err);
 				}
 			}
+
+			var userDir = path.join(__dirname, "/../../public/uploads/" + req.body.username);
+			fs.access(userDir, function (err) {
+				if (err) { 
+					fs.mkdir(userDir, function (err) {
+						if (err) console.log(err);
+					});
+				}
+			});
 
 			res.json({
 				message: "User created"

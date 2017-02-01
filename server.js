@@ -40,8 +40,9 @@ app.get("/", function (req, res) {
 // Advanced Routing
 //=========================
 var authRoutes = require("./app/routes/auth")(app, express);
-app.use("/api/auth", authRoutes);
+app.use("/api", authRoutes);
 
+// Requires next routes to have authentication
 app.use(function (req, res, next) {
 	var token = req.body.token || req.headers["x-access-token"];
 
@@ -54,7 +55,6 @@ app.use(function (req, res, next) {
 				});
 			} else {
 				req.decoded = decoded;
-				console.log("stuff");
 				next();
 			}
 		});
@@ -65,6 +65,9 @@ app.use(function (req, res, next) {
 		});
 	}
 });
+
+var noteRoutes = require("./app/routes/notes")(app, express);
+app.use("/api", noteRoutes);
 
 //=========================
 // Start Server
