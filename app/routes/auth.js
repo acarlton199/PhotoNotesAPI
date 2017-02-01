@@ -49,7 +49,7 @@ module.exports = function (app, express) {
 		User.findOne({
 			username: req.body.username
 		}, "username password", function (err, user) {
-			if (err) throw err;
+			if (err) console.log(err);
 
 			if (!user) {
 				res.json({

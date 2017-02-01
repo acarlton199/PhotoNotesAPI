@@ -66,6 +66,9 @@ app.use(function (req, res, next) {
 	}
 });
 
+var userRoutes = require("./app/routes/user")(app, express);
+app.use("/api", userRoutes);
+
 var noteRoutes = require("./app/routes/notes")(app, express);
 app.use("/api", noteRoutes);
 
