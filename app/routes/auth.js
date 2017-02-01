@@ -2,9 +2,9 @@ var User = require("../models/users");
 var jwt = require("jsonwebtoken");
 var path = require("path");
 var fs = require("fs");
-var config = require("../../config/secret");
+var secretConfig = require("../../config/secret");
 
-var superSecret = config.secret;
+var superSecret = secretConfig.secret;
 
 module.exports = function (app, express) {
 	var authRouter = express.Router();

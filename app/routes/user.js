@@ -1,5 +1,5 @@
 var User = require("../models/users");
-var config = require("../../config/secret");
+var config = require("../../config/shared");
 
 module.exports = function (app, express) {
 	var userRouter = express.Router();
