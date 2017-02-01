@@ -15,7 +15,7 @@ module.exports = function (app, express) {
 		.post(function (req, res) {
 			var note = new Note();
 
-			var username = getUsernameFromToken(req);
+			var username = config.getUsernameFromToken(req);
 			var userDir = path.join(__dirname, "/../../public/uploads/" + username);
 			var newFileName = "";
 
@@ -57,7 +57,7 @@ module.exports = function (app, express) {
 
 		})
 		.get(function (req, res) {
-			var username = getUsernameFromToken(req);
+			var username = config.getUsernameFromToken(req);
 			Note.find({ owner: username }, function (err, notes) {
 				if (err) console.log(err);
 				res.json(notes);
@@ -94,13 +94,6 @@ module.exports = function (app, express) {
 				res.json({ message: "Note deleted" });
 			});
 		});
-
-	// Returns the username from within the Json Token
-	var getUsernameFromToken = function (req) {
-		var token = req.body.token || req.headers["x-access-token"];
-		var decoded = jwt.verify(token, superSecret);
-		return decoded.username;
-	};
 
 	var createNameForStorage = function(file, user) {
 		var arr = file.split(".");
