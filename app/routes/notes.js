@@ -1,12 +1,13 @@
-var fs         = require("fs");
-var path       = require("path");
-var User       = require("../models/users");
-var Note       = require("../models/photonotes");
-var jwt        = require("jsonwebtoken");
-var config     = require("../../config/secret");
-var formidable = require("formidable");
+var fs           = require("fs");
+var path         = require("path");
+var User         = require("../models/users");
+var Note         = require("../models/photonotes");
+var jwt          = require("jsonwebtoken");
+var secretConfig = require("../../config/secret");
+var shared       = require("../../config/shared");
+var formidable   = require("formidable");
 
-var superSecret = config.secret;
+var superSecret = secretConfig.secret;
 
 module.exports = function (app, express) {
 	var notesRouter = express.Router();
@@ -15,7 +16,7 @@ module.exports = function (app, express) {
 		.post(function (req, res) {
 			var note = new Note();
 
-			var username = config.getUsernameFromToken(req);
+			var username = shared.getUsernameFromToken(req);
 			var userDir = path.join(__dirname, "/../../public/uploads/" + username);
 			var newFileName = "";
 
@@ -57,7 +58,7 @@ module.exports = function (app, express) {
 
 		})
 		.get(function (req, res) {
-			var username = config.getUsernameFromToken(req);
+			var username = shared.getUsernameFromToken(req);
 			Note.find({ owner: username }, function (err, notes) {
 				if (err) console.log(err);
 				res.json(notes);
